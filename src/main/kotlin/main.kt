@@ -11,10 +11,8 @@ suspend fun printlnDelayed(message: String) {
     println(message)
 }
 
-fun exampleBlocking(){
+fun exampleBlocking() = runBlocking {
     println("one")
-    runBlocking {
-        printlnDelayed("two")
-    }
+    printlnDelayed("two")
     println("three")
 }
