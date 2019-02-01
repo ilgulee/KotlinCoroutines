@@ -53,7 +53,7 @@ fun exampleLaunchGlobalWaiting() = runBlocking {
 fun exampleLaunchCoroutineScope() = runBlocking {
     println("one - from thread ${Thread.currentThread().name}")
 
-    this.launch {
+    this.launch(Dispatchers.Default) {
         printlnDelayed("two - from thread ${Thread.currentThread().name}")
     }
 
