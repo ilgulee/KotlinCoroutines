@@ -1,10 +1,9 @@
-
 import kotlinx.coroutines.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 fun main(args: Array<String>) {
-    exampleAsyncAwait()
+    exampleWithContext()
 }
 
 suspend fun printlnDelayed(message: String) {
@@ -79,6 +78,20 @@ fun exampleAsyncAwait() = runBlocking {
     val deferred3 = async { calculateHardThings(30) }
 
     val sum = deferred1.await() + deferred2.await() + deferred3.await()
+    println("async/await result = $sum")
+
+    val endTime = System.currentTimeMillis()
+    println("Time taken: ${endTime - startTime}")
+}
+
+fun exampleWithContext() = runBlocking {
+    val startTime = System.currentTimeMillis()
+
+    val result1 = withContext(Dispatchers.Default) { calculateHardThings(10) }
+    val result2 = withContext(Dispatchers.Default) { calculateHardThings(20) }
+    val result3 = withContext(Dispatchers.Default) { calculateHardThings(30) }
+
+    val sum = result1 + result2 + result3
     println("async/await result = $sum")
 
     val endTime = System.currentTimeMillis()
