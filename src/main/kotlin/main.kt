@@ -1,7 +1,8 @@
+
 import kotlinx.coroutines.*
 
 fun main(args: Array<String>) {
-    exampleLaunchGlobalWaiting()
+    exampleLaunchCoroutineScope()
 }
 
 suspend fun printlnDelayed(message: String) {
@@ -47,4 +48,14 @@ fun exampleLaunchGlobalWaiting() = runBlocking {
 
     println("three - from thread ${Thread.currentThread().name}")
     job.join() //whenever GlobalScope.launch job finish
+}
+
+fun exampleLaunchCoroutineScope() = runBlocking {
+    println("one - from thread ${Thread.currentThread().name}")
+
+    this.launch {
+        printlnDelayed("two - from thread ${Thread.currentThread().name}")
+    }
+
+    println("three - from thread ${Thread.currentThread().name}")
 }
